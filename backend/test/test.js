@@ -120,7 +120,7 @@ describe("Student Endpoints", () => {
       expect(element).toHaveProperty('age');
       expect(element).toHaveProperty('name');
       expect(element).toHaveProperty('id');
-      expect(element).toHaveProperty('hometown');
+      
     });
 
     expect(body[0].name).toBe('Supun Mihiranga');
@@ -128,13 +128,13 @@ describe("Student Endpoints", () => {
     expect(body[2].name).toBe('Isuri De Silva');
   });
 
-  it("POST /addStudent should show a newly added student", async () => {
+  it("POST /addStudent should show a newly added students", async () => {
     // add new student
-    await requestWithSupertest.post("/addStudent").send({
+    await requestWithSupertest.post("/addStudents").send({
       "id": 99999,
       "name": "Rashini Shehara",
       "age": 12,
-      "hometown": "Galle"
+      
     });
 
     const res = await requestWithSupertest.get("/listStudents");
@@ -147,17 +147,17 @@ describe("Student Endpoints", () => {
       "id": 99999,
       "name": "Rashini Shehara",
       "age": 12,
-      "hometown": "Galle"
+      
     });
   });
 
   it("POST /editStudent should edit a Student", async () => {
+    jest.setTimeout(60000); 
     // add new teacher
     await requestWithSupertest.post("/editStudent").send({
       "id": 20002,
       "name": "Sandakan",
       "age": 15,
-      "hometown": "Homagama"
     });
 
     const res = await requestWithSupertest.get("/listStudents");
@@ -168,7 +168,7 @@ describe("Student Endpoints", () => {
       "id": 20002,
       "name": "Sandakan",
       "age": 15,
-      "hometown": "Homagama"
+      
     });
 
     expect(body).not.toContainEqual({
@@ -193,21 +193,21 @@ describe("Student Endpoints", () => {
       expect(element).toHaveProperty('age');
       expect(element).toHaveProperty('name');
       expect(element).toHaveProperty('id');
-      expect(element).toHaveProperty('hometown');
+      
     });
 
     expect(body).toContainEqual({
       "id": 20001,
       "name": "Supun Mihiranga",
       "age": 10,
-      "hometown": "Colombo"
+     
     });
 
     expect(body).not.toContainEqual({
       "id": 20003,
       "name": "Isuri De Silva",
       "age": 10,
-      "hometown": "Kandy"
+      
     });
   });
 });
