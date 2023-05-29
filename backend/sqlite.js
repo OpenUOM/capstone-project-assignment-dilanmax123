@@ -20,9 +20,18 @@ const getDbConnection = async () => {
 
 const closeConnection = conn => {
   if (conn) {
-    return conn.close();
-  }
-};
+    return new Promise((resolve, reject) => {
+    conn.close(err => {
+    if (err) {
+    reject(err);
+    } else {
+    _DBConnection = null;
+    resolve();
+    }
+    });
+    });
+    }
+    };
 
 module.exports = {
   getDbConnection,
